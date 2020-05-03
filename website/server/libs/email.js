@@ -131,9 +131,11 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
 
   if (IS_PROD && mailingInfoArray.length > 0) {
     return got.post(`${EMAIL_SERVER.url}/job`, {
-      auth: `${EMAIL_SERVER.auth.user}:${EMAIL_SERVER.auth.password}`,
-      json: true,
-      body: {
+      retry: 5, // retry the http request to the email server 5 times
+      timeout: 60000, // wait up to 60s before timing out
+      username: EMAIL_SERVER.auth.user,
+      password: EMAIL_SERVER.auth.password,
+      json: {
         type: 'email',
         data: {
           emailType,
@@ -147,7 +149,10 @@ export async function sendTxn (mailingInfoArray, emailType, variables, personalV
           backoff: { delay: 10 * 60 * 1000, type: 'fixed' },
         },
       },
-    }).catch(err => logger.error(err));
+    }).json().catch(err => logger.error(err, {
+      extraMessage: 'Error while sending an email.',
+      emailType,
+    }));
   }
 
   return null;
