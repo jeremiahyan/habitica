@@ -429,11 +429,12 @@
       }
 
       &.has-content {
-        --textarea-auto-height: 80px
+        --textarea-auto-height: 80px;
       }
 
-      max-height: var(--textarea-auto-height, 40px);
+      height: var(--textarea-auto-height, 40px);
       min-height: var(--textarea-auto-height, 40px);
+      max-height: 300px;
     }
   }
 
@@ -608,6 +609,23 @@ export default {
       MAX_MESSAGE_LENGTH: MAX_MESSAGE_LENGTH.toString(),
     };
   },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      const data = vm.$store.state.privateMessageOptions;
+
+      if ((!data || (data && !data.userIdToMessage)) && vm.$route.query && vm.$route.query.uuid) {
+        vm.$store.dispatch('user:userLookup', { uuid: vm.$route.query.uuid }).then(res => {
+          if (res && res.data && res.data.data) {
+            vm.$store.dispatch('user:newPrivateMessageTo', {
+              member: res.data.data,
+            });
+          }
+        });
+      } else {
+        vm.hasPrivateMessageOptionsOnPageLoad = true;
+      }
+    });
+  },
   async mounted () {
     // notification click to refresh
     this.$root.$on(EVENTS.PM_REFRESH, async () => {
@@ -625,8 +643,11 @@ export default {
 
     await this.reload();
 
-    const data = this.$store.state.privateMessageOptions;
+    // close members modal if the Private Messages page is opened in an existing tab
+    this.$root.$emit('habitica::dismiss-modal', 'profile');
+    this.$root.$emit('habitica::dismiss-modal', 'members-modal');
 
+    const data = this.$store.state.privateMessageOptions;
     if (data && data.userIdToMessage) {
       this.initiatedConversation = {
         uuid: data.userIdToMessage,
@@ -635,6 +656,7 @@ export default {
         backer: data.backer,
         contributor: data.contributor,
         userStyles: data.userStyles,
+        canReceive: true,
       };
 
       this.$store.state.privateMessageOptions = {};
@@ -642,8 +664,9 @@ export default {
       this.selectConversation(this.initiatedConversation.uuid);
     }
   },
-  destroyed () {
+  beforeDestroy () {
     this.$root.$off(EVENTS.RESYNC_COMPLETED);
+    this.$root.$off(EVENTS.PM_REFRESH);
   },
   computed: {
     ...mapState({ user: 'user.data' }),
@@ -874,6 +897,7 @@ export default {
         username: this.user.auth.local.username,
         contributor: this.user.contributor,
         backer: this.user.backer,
+        canReceive: true,
       });
 
       // Remove the placeholder message
