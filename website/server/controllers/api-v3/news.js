@@ -1,10 +1,9 @@
+import md from 'habitica-markdown';
 import { authWithHeaders } from '../../middlewares/auth';
+import { model as NewsPost } from '../../models/newsPost';
 
 const api = {};
 
-// @TODO export this const, cannot export it from here because only routes are exported from
-// controllers
-const LAST_ANNOUNCEMENT_TITLE = 'LAST CHANCE FOR OWLISH ORACLE SET!';
 const worldDmg = { // @TODO
   bailey: false,
 };
@@ -24,29 +23,42 @@ api.getNews = {
   async handler (req, res) {
     const baileyClass = worldDmg.bailey ? 'npc_bailey_broken' : 'npc_bailey';
 
-    res.status(200).send({
-      html: `
-      <div class="bailey">
-        <div class="media align-items-center">
-          <div class="mr-3 ${baileyClass}"></div>
-          <div class="media-body">
-            <h1 class="align-self-center">${res.t('newStuff')}</h1>
-            <h2>8/27/2020 - ${LAST_ANNOUNCEMENT_TITLE}</h2>
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+              <h2>${lastNewsPost.title.toUpperCase()}</h2>
+            </div>
+          </div>
+          <hr/>
+          <p>
+            ${md.unsafeHTMLRender(lastNewsPost.text)}
+          </p>
+          <div class="small">
+            by ${lastNewsPost.credits}
           </div>
         </div>
-        <hr/>
-        <div class="promo_mystery_202008 center-block"></div>
-        <p>
-          Reminder: August 31 is the last day to receive the Owlish Oracle Set when you <a
-          href="/user/settings/subscription">sign up for a new Habitica subscription</a>!
-          Subscribing also lets you buy Gems with Gold. The longer your subscription, the more Gems
-          you can get!
-        </p>
-        <p>Thanks so much for your support! You help keep Habitica running.</p>
-        <div class="small mb-3">by Beffymaroo</div>
-      </div>
-      `,
-    });
+        `,
+      });
+    } else {
+      res.status(200).send({
+        html: `
+        <div class="bailey">
+          <div class="media align-items-center">
+            <div class="mr-3 ${baileyClass}"></div>
+            <div class="media-body">
+              <h1 class="align-self-center">${res.t('newStuff')}</h1>
+            </div>
+          </div>
+        </div>
+        `,
+      });
+    }
   },
 };
 
@@ -56,7 +68,6 @@ api.getNews = {
  * @apiDescription Add a notification to allow viewing of the latest "New Stuff by Bailey" message.
  * Prevent this specific Bailey message from appearing automatically.
  * @apiGroup News
- *
  *
  * @apiSuccess {Object} data An empty Object
  *
@@ -68,13 +79,17 @@ api.tellMeLaterNews = {
   async handler (req, res) {
     const { user } = res.locals;
 
-    user.flags.newStuff = false;
+    const lastNewsPost = NewsPost.lastNewsPost();
+    if (lastNewsPost) {
+      user.flags.lastNewStuffRead = lastNewsPost._id;
 
-    const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
-    if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
-    user.addNotification('NEW_STUFF', { title: LAST_ANNOUNCEMENT_TITLE }, true); // seen by default
+      const existingNotificationIndex = user.notifications.findIndex(n => n && n.type === 'NEW_STUFF');
+      if (existingNotificationIndex !== -1) user.notifications.splice(existingNotificationIndex, 1);
+      user.addNotification('NEW_STUFF', { title: lastNewsPost.title.toUpperCase() }, true); // seen by default
 
-    await user.save();
+      await user.save();
+    }
+
     res.respond(200, {});
   },
 };

@@ -1,6 +1,5 @@
 {
     "achievement": "実績",
-    "share": "共有",
     "onwards": "やった！",
     "levelup": "実生活での目標達成でレベルアップしました！体力も最大まで回復しました！",
     "reachedLevel": "レベル<%= level %>になりました",
@@ -84,5 +83,12 @@
     "achievementBugBonanza": "虫取り大成功",
     "achievementFreshwaterFriendsModalText": "ウーパールーパー、カエル、カバのペットクエストを完了しました！",
     "achievementFreshwaterFriendsText": "ウーパールーパー、カエル、カバのペットクエストを完了しました。",
-    "achievementFreshwaterFriends": "淡水の仲間たち"
+    "achievementFreshwaterFriends": "淡水の仲間たち",
+    "achievementAllThatGlittersModalText": "黄金の乗騎を全て手なづずけました！",
+    "achievementAllThatGlittersText": "黄金の乗騎をすべて手なずけました。",
+    "achievementAllThatGlitters": "全てが輝いている",
+    "achievementGoodAsGoldModalText": "黄金のペットをすべて集めました！",
+    "achievementGoodAsGoldText": "黄金のペットをすべて集めました。",
+    "achievementGoodAsGold": "値千金",
+    "yourRewards": "あなたのごほうび"
 }

@@ -251,10 +251,6 @@
     padding-top: 16px;
   }
 
-  .input-search, .search-button {
-    height: 40px;
-  }
-
   .tasks-navigation {
     margin-bottom: 20px;
   }
@@ -549,7 +545,7 @@ export default {
     createTask (type) {
       this.openCreateBtn = false;
       this.creatingTask = taskDefaults({ type, text: '' }, this.user);
-      this.creatingTask.tags = this.selectedTags;
+      this.creatingTask.tags = this.selectedTags.slice();
 
       // Necessary otherwise the first time the modal is not rendered
       Vue.nextTick(() => {

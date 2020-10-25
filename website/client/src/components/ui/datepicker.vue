@@ -1,9 +1,9 @@
 <template>
   <datepicker
     v-model="value"
-    :calendarButton="true"
-    :calendarButtonIconContent="icons.calendar"
-    :bootstrapStyling="true"
+    :calendar-button="true"
+    :calendar-button-icon-content="icons.calendar"
+    :bootstrap-styling="true"
     :clear-button="false"
     :today-button="false"
     :disabled-picker="disabled"
@@ -12,6 +12,14 @@
     calendar-class="calendar-padding"
     @input="upDate($event)"
   >
+    <div
+      v-if="clearButton && value"
+      slot="afterDateInput"
+      class="vdp-datepicker__clear-button"
+      @click="upDate(null)"
+      v-html="icons.close"
+    >
+    </div>
     <div slot="beforeCalendarHeader">
       <div class="datetime-buttons">
         <button
@@ -37,17 +45,19 @@
 import moment from 'moment';
 import datepicker from 'vuejs-datepicker';
 import calendarIcon from '@/assets/svg/calendar.svg';
+import closeIcon from '@/assets/svg/close.svg';
 
 export default {
   components: {
     datepicker,
   },
-  props: ['date', 'disabled', 'highlighted'],
+  props: ['date', 'disabled', 'highlighted', 'clearButton'],
   data () {
     return {
       value: this.date,
       icons: Object.freeze({
         calendar: calendarIcon,
+        close: closeIcon,
       }),
     };
   },
@@ -193,6 +203,19 @@ export default {
       font-weight: bold;
       text-align: center;
       color: $gray-50;
+    }
+  }
+
+  .vdp-datepicker__clear-button {
+    background: transparent !important;
+    display: block;
+    height: 30px;
+    cursor: pointer;
+
+    svg {
+      margin: auto 0.75rem;
+      width: 0.563rem;
+      height: 30px;
     }
   }
 </style>
