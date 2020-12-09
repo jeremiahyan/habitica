@@ -330,6 +330,14 @@ const armor = {
     int: 12,
     set: 'autumnEnchanter',
   },
+  doubletOfClubs: {
+    con: 10,
+    set: 'jackOfClubs',
+  },
+  dressingGown: {
+    con: 12,
+    set: 'dressingGown',
+  },
 };
 
 const body = {
@@ -659,6 +667,14 @@ const head = {
   hornsOfAutumn: {
     str: 12,
     set: 'autumnEnchanter',
+  },
+  capOfClubs: {
+    int: 10,
+    set: 'jackOfClubs',
+  },
+  nightcap: {
+    per: 12,
+    set: 'dressingGown',
   },
 };
 
@@ -1130,6 +1146,14 @@ const weapon = {
   enchantersStaff: {
     per: 12,
     set: 'autumnEnchanter',
+  },
+  clubOfClubs: {
+    str: 10,
+    set: 'jackOfClubs',
+  },
+  eveningTea: {
+    int: 12,
+    set: 'dressingGown',
   },
 };
 
