@@ -109,7 +109,7 @@ api.cardTypes = {
   nye: {
     key: 'nye',
     messageOptions: 5,
-    yearRound: moment().isBefore('2020-01-02'),
+    yearRound: moment().isBefore('2021-01-02'),
   },
   thankyou: {
     key: 'thankyou',
@@ -185,7 +185,7 @@ api.specialMounts = stable.specialMounts;
 api.mountInfo = stable.mountInfo;
 
 // For seasonal events, change this constant:
-const FOOD_SEASON = 'Normal';
+const FOOD_SEASON = moment().isBefore('2021-02-02') ? 'Cake' : 'Normal';
 
 api.food = {
   Meat: {

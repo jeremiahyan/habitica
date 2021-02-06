@@ -658,6 +658,12 @@ const armor = {
   winter2021Healer: {
     set: 'winter2021ArcticExplorerHealerSet',
   },
+  birthday2021: {
+    text: t('armorSpecialBirthday2021Text'),
+    notes: t('armorSpecialBirthday2021Notes'),
+    value: 0,
+    canOwn: ownsItem('armor_special_birthday2021'),
+  },
 };
 
 const armorStats = {
@@ -1658,6 +1664,12 @@ const head = {
   },
   winter2021Healer: {
     set: 'winter2021ArcticExplorerHealerSet',
+  },
+  nye2020: {
+    text: t('headSpecialNye2020Text'),
+    notes: t('headSpecialNye2020Notes'),
+    value: 0,
+    canOwn: ownsItem('head_special_nye2020'),
   },
 };
 
@@ -2910,6 +2922,7 @@ const weapon = {
     notes: t('weaponSpecialSummer2019MageNotes', { int: 15 }),
     value: 90,
     int: 15,
+    per: 0,
     twoHanded: false,
     canBuy: () => CURRENT_EVENT && CURRENT_EVENT.season === 'summer',
   },

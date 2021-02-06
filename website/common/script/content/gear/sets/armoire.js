@@ -338,6 +338,14 @@ const armor = {
     con: 12,
     set: 'dressingGown',
   },
+  blueMoonShozoku: {
+    con: 8,
+    set: 'blueMoon',
+  },
+  softPinkSuit: {
+    per: 12,
+    set: 'pinkLoungewear',
+  },
 };
 
 const body = {
@@ -676,6 +684,14 @@ const head = {
     per: 12,
     set: 'dressingGown',
   },
+  blueMoonHelm: {
+    int: 8,
+    set: 'blueMoon',
+  },
+  pinkFloppyHat: {
+    int: 12,
+    set: 'pinkLoungewear',
+  },
 };
 
 const shield = {
@@ -864,6 +880,15 @@ const shield = {
   darkAutumnFlame: {
     con: 12,
     set: 'autumnEnchanter',
+  },
+  blueMoonSai: {
+    per: 8,
+    set: 'blueMoon',
+  },
+  softPinkPillow: {
+    str: 6,
+    con: 6,
+    set: 'pinkLoungewear',
   },
 };
 
@@ -1154,6 +1179,10 @@ const weapon = {
   eveningTea: {
     int: 12,
     set: 'dressingGown',
+  },
+  blueMoonSai: {
+    str: 8,
+    set: 'blueMoon',
   },
 };
 

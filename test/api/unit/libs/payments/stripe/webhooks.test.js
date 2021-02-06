@@ -16,9 +16,7 @@ import * as subscriptions from '../../../../../../website/server/libs/payments/s
 const { i18n } = common;
 
 describe('Stripe - Webhooks', () => {
-  const stripe = stripeModule('test', {
-    apiVersion: '2020-08-27',
-  });
+  const stripe = stripeModule('test');
   const endpointSecret = nconf.get('STRIPE_WEBHOOKS_ENDPOINT_SECRET');
   const headers = {};
   const body = {};
@@ -90,11 +88,11 @@ describe('Stripe - Webhooks', () => {
       sandbox.stub(payments, 'cancelSubscription').resolves({});
     });
 
-    it('does not do anything if event.request is null (subscription cancelled manually)', async () => {
+    it('does not do anything if event.request is not null (subscription cancelled manually)', async () => {
       constructEventStub.returns({
         id: 123,
         type: eventType,
-        request: 123,
+        request: { id: 123 },
       });
 
       await stripePayments.handleWebhooks({ body, headers }, stripe);
@@ -118,7 +116,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await expect(stripePayments.handleWebhooks({ body, headers }, stripe))
@@ -151,7 +149,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await stripePayments.handleWebhooks({ body, headers }, stripe);
@@ -182,7 +180,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await expect(stripePayments.handleWebhooks({ body, headers }, stripe))
@@ -220,7 +218,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await expect(stripePayments.handleWebhooks({ body, headers }, stripe))
@@ -261,7 +259,7 @@ describe('Stripe - Webhooks', () => {
               customer: customerId,
             },
           },
-          request: null,
+          request: { id: null },
         });
 
         await stripePayments.handleWebhooks({ body, headers }, stripe);
