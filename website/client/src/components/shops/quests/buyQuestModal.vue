@@ -13,20 +13,22 @@
         :pinned="isPinned"
       />
     </span>
-    <div class="close">
-      <span
-        class="svg-icon inline icon-10"
-        aria-hidden="true"
-        @click="hideDialog()"
-        v-html="icons.close"
-      ></span>
+    <div class="dialog-close">
+      <close-icon @click="hideDialog()" />
     </div>
+    <h2 class="text-center textCondensed">
+      {{$t('questDetailsTitle') }}
+    </h2>
     <div
       v-if="item != null"
       class="content"
     >
       <div class="inner-content">
-        <questDialogContent :item="item" />
+        <questDialogContent
+          :item="item"
+          :abbreviated="true"
+        />
+        <quest-rewards :quest="item" />
         <div
           v-if="!item.locked"
           class="purchase-amount"
@@ -78,22 +80,10 @@
         </button>
       </div>
     </div>
-    <div
-      v-if="item.drop"
-      class="right-sidebar"
-    >
-      <questDialogDrops :item="item" />
-    </div>
-    <div
+    <countdown-banner
       v-if="item.event"
-      class="limitedTime"
-    >
-      <span
-        class="svg-icon inline icon-16 clock-icon"
-        v-html="icons.clock"
-      ></span>
-      <span class="limitedString">{{ limitedString }}</span>
-    </div>
+      :endDate="endDate"
+    />
     <div
       slot="modal-footer"
       class="clearfix"
@@ -116,9 +106,14 @@
   #buy-quest-modal {
     @include centeredModal();
 
+    h2 {
+      color: $purple-300;
+      margin-top: 1rem;
+    }
+
     .modal-dialog {
       margin-top: 8%;
-      width: 448px;
+      width: 448px !important;
     }
 
     .content {
@@ -138,7 +133,6 @@
     }
 
     .questInfo {
-      width: 70%;
       margin: 0 auto 10px auto;
     }
 
@@ -206,26 +200,10 @@
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
       display: block;
-    }
+      padding: 1rem 1.5rem;
 
-    .limitedTime {
-      height: 32px;
-      background-color: $purple-300;
-      width: calc(100% + 30px);
-      margin: 0 -15px; // the modal content has its own padding
-
-      font-size: 12px;
-      line-height: 1.33;
-      text-align: center;
-      color: $white;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .limitedString {
-        height: 16px;
-        margin-left: 8px;
+      &> * {
+        margin: 0;
       }
     }
 
@@ -264,11 +242,22 @@
         }
       }
     }
+
+    @media only screen and (max-width: 1000px) {
+      .modal-dialog {
+        max-width: 80%;
+        width: 80% !important;
+
+        .modal-body {
+          flex-direction: column;
+          display: flex;
+        }
+      }
+    }
   }
 </style>
 
 <script>
-import moment from 'moment';
 import { mapState } from '@/libs/store';
 import seasonalShopConfig from '@/../../common/script/libs/shops-seasonal.config';
 
@@ -285,16 +274,20 @@ import notifications from '@/mixins/notifications';
 import buyMixin from '@/mixins/buy';
 import numberInvalid from '@/mixins/numberInvalid';
 import PinBadge from '@/components/ui/pinBadge';
+import CountdownBanner from '../countdownBanner';
 
-import questDialogDrops from './questDialogDrops';
 import questDialogContent from './questDialogContent';
+import QuestRewards from './questRewards';
+import CloseIcon from '../../shared/closeIcon';
 
 export default {
   components: {
+    CloseIcon,
+    QuestRewards,
     BalanceInfo,
     PinBadge,
-    questDialogDrops,
     questDialogContent,
+    CountdownBanner,
   },
   mixins: [buyMixin, currencyMixin, notifications, numberInvalid],
   props: {
@@ -321,6 +314,7 @@ export default {
 
       isPinned: false,
       selectedAmountToBuy: 1,
+      endDate: seasonalShopConfig.dateRange.end,
     };
   },
   computed: {
@@ -343,9 +337,6 @@ export default {
       if (this.priceType === 'gold') return this.icons.gold;
       if (this.priceType === 'hourglasses') return this.icons.hourglass;
       return this.icons.gem;
-    },
-    limitedString () {
-      return this.$t('limitedOffer', { date: moment(seasonalShopConfig.dateRange.end).format('LL') });
     },
   },
   watch: {

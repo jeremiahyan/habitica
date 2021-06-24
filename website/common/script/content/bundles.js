@@ -21,8 +21,9 @@ const bundles = {
       'harpy',
       'owl',
     ],
+    event: EVENTS.potions202105,
     canBuy () {
-      return moment().isBetween('2019-05-09', '2019-06-02');
+      return moment().isBefore(EVENTS.potions202105.end);
     },
     type: 'quests',
     class: 'quest_bundle_featheredFriends',
@@ -37,8 +38,9 @@ const bundles = {
       'turtle',
       'whale',
     ],
+    event: EVENTS.bundle202106,
     canBuy () {
-      return moment().isBetween('2019-07-17', '2019-08-02');
+      return moment().isBefore(EVENTS.bundle202106.end);
     },
     type: 'quests',
     class: 'quest_bundle_splashyPals',

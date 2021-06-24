@@ -112,11 +112,11 @@
     "planNotActive": "El plan no se ha activado todavía (debido a un fallo en Paypal). Se activará el <%= nextBillingDate %>, después del cual podrás cancelar para retener todos tus beneficios",
     "notAllowedHourglass": "Mascota/Montura no disponible para compra con Reloj de arena Misterioso.",
     "readCard": "<%= cardType %> Ha sido leído",
-    "cardTypeRequired": "Tipo de carta requerido",
-    "cardTypeNotAllowed": "Tipo de carta desconocido.",
-    "invalidCoupon": "Codigo de cupón invalido.",
-    "couponUsed": "El codigo de cupón ya fue usado.",
-    "couponCodeRequired": "El codigo de cupón es requerido.",
+    "cardTypeRequired": "Tipo de tarjeta requerido",
+    "cardTypeNotAllowed": "Tipo de tarjeta desconocido.",
+    "invalidCoupon": "Código de cupón invalido.",
+    "couponUsed": "El código de cupón ya fue usado.",
+    "couponCodeRequired": "El código de cupón es requerido.",
     "paypalCanceled": "Tu suscripción fue cancelada.",
     "choosePaymentMethod": "Elija un método de pago",
     "buyGemsSupportsDevs": "Purchasing Gems supports the developers and helps keep Habitica running",
@@ -189,5 +189,6 @@
     "mysterySet202101": "Conjunto Elegante de Leopardo de las Nieves",
     "mysterySet202102": "Conjunto de Campeón Encantador",
     "mysterySet202103": "Conjunto de Visualización de Flores",
-    "mysterySet202104": "Cojunto de Guardián del Cardo"
+    "mysterySet202104": "Cojunto de Guardián del Cardo",
+    "mysterySet202105": "Conjunto Dragón Nebula"
 }

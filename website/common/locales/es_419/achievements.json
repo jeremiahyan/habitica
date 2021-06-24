@@ -107,6 +107,12 @@
     "achievementSeasonalSpecialistText": "Ha completado todas las misiones estacionales de Primavera e Invierno: ¡Búsqueda de Huevos, Santa Trampero, y Encuentra al Cachorro!",
     "achievementSeasonalSpecialist": "Especialista Estacional",
     "achievementLegendaryBestiaryModalText": "¡Coleccionaste a todas las mascotas míticas!",
-    "achievementLegendaryBestiaryText": "Ha eclosionado todas las mascotas míticas: ¡Dragón, Cerdo Volador, Grifo, Serpiente de Mar y Unicornio!",
-    "achievementLegendaryBestiary": "Bestiario Legendario"
+    "achievementLegendaryBestiaryText": "¡Ha eclosionado todos los colores estándar de la mascotas míticas: Dragón, Cerdo Volador, Grifo, Serpiente Marina y Unicornio!",
+    "achievementLegendaryBestiary": "Bestiario Legendario",
+    "achievementVioletsAreBlue": "Las violetas son azules",
+    "achievementWildBlueYonderModalText": "¡Has domesticado todas las monturas de algodón de azúcar azul!",
+    "achievementWildBlueYonderText": "Ha domesticado todas las monturas de algodón de azúcar azul.",
+    "achievementWildBlueYonder": "Salvaje y azul lejanía",
+    "achievementVioletsAreBlueModalText": "¡Lograste obtener todas las mascotas de algodón de azúcar azul!",
+    "achievementVioletsAreBlueText": "Ha obtenido todas las mascotas de algodón de azúcar azul."
 }

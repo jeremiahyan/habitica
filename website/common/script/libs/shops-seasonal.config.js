@@ -7,7 +7,7 @@ import {
 } from '../content/constants';
 
 const CURRENT_EVENT = find(
-  EVENTS, event => moment().isBetween(event.start, event.end) && Boolean(event.season),
+  EVENTS, event => moment().isBetween(event.start, event.end),
 );
 
 const SHOP_OPEN = CURRENT_EVENT && ['winter', 'spring', 'summer', 'fall'].includes(CURRENT_EVENT.season);
@@ -18,8 +18,8 @@ export default {
   currentSeason: SHOP_OPEN ? upperFirst(CURRENT_EVENT.season) : 'Closed',
 
   dateRange: {
-    start: SHOP_OPEN ? moment(CURRENT_EVENT.start).format('YYYY-MM-DD') : moment().subtract(1, 'days').toDate(),
-    end: SHOP_OPEN ? moment(CURRENT_EVENT.end).format('YYYY-MM-DD') : moment().subtract(1, 'seconds').toDate(),
+    start: CURRENT_EVENT ? moment(CURRENT_EVENT.start) : moment().subtract(1, 'days').toDate(),
+    end: CURRENT_EVENT ? moment(CURRENT_EVENT.end) : moment().subtract(1, 'seconds').toDate(),
   },
 
   availableSets: SHOP_OPEN
@@ -30,24 +30,20 @@ export default {
 
   pinnedSets: SHOP_OPEN
     ? {
-      healer: 'spring2021WillowHealerSet',
-      rogue: 'spring2021TwinFlowerRogueSet',
-      warrior: 'spring2021SunstoneWarriorSet',
-      wizard: 'spring2021SwanMageSet',
+      healer: 'summer2021ParrotHealerSet',
+      rogue: 'summer2021ClownfishRogueSet',
+      warrior: 'summer2021FlyingFishWarriorSet',
+      wizard: 'summer2021NautilusMageSet',
     }
     : {},
 
-  availableSpells: moment().isBetween('2021-04-06T08:00-05:00', '2021-04-30T20:00-05:00')
+  availableSpells: SHOP_OPEN && moment().isAfter('2021-07-06T08:00-04:00')
     ? [
-      'shinySeed',
+      'seafoam',
     ]
     : [],
 
-  availableQuests: SHOP_OPEN && moment().isAfter('2021-03-30T08:00-05:00')
-    ? [
-      'egg',
-    ]
-    : [],
+  availableQuests: [],
 
-  featuredSet: 'spring2020PuddleMageSet',
+  featuredSet: 'summer2020CrocodileRogueSet',
 };

@@ -518,8 +518,9 @@ const quests = {
     completion: t('questEggHuntCompletion'),
     value: 1,
     category: 'pet',
+    event: EVENTS.spring2021,
     canBuy () {
-      return moment().isBefore('2021-04-30T20:00-05:00');
+      return moment().isBefore(EVENTS.spring2021.end);
     },
     collect: {
       plainEgg: {
@@ -3587,7 +3588,7 @@ const quests = {
     category: 'hatchingPotion',
     event: EVENTS.spring2021,
     canBuy () {
-      return moment().isBetween('2021-04-01T08:00-05:00', '2021-04-30T20:00-05:00');
+      return moment().isBefore(EVENTS.spring2021.end);
     },
     boss: {
       name: t('questWaffleBoss'),
@@ -3760,6 +3761,47 @@ const quests = {
       gp: 50,
       exp: 450,
       unlock: t('questBlackPearlUnlockText'),
+    },
+  },
+  stone: {
+    text: t('questStoneText'),
+    notes: t('questStoneNotes'),
+    completion: t('questStoneCompletion'),
+    value: 4,
+    category: 'hatchingPotion',
+    collect: {
+      mossyStone: {
+        text: t('questStoneCollectMossyStones'),
+        count: 25,
+      },
+      marsRune: {
+        text: t('questStoneCollectMarsRunes'),
+        count: 10,
+      },
+      capricornRune: {
+        text: t('questStoneCollectCapricornRunes'),
+        count: 10,
+      },
+    },
+    drop: {
+      items: [
+        {
+          type: 'hatchingPotions',
+          key: 'MossyStone',
+          text: t('questStoneDropMossyStonePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'MossyStone',
+          text: t('questStoneDropMossyStonePotion'),
+        }, {
+          type: 'hatchingPotions',
+          key: 'MossyStone',
+          text: t('questStoneDropMossyStonePotion'),
+        },
+      ],
+      gp: 50,
+      exp: 100,
+      unlock: t('questStoneUnlockText'),
     },
   },
 };

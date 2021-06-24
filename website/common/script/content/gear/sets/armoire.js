@@ -354,6 +354,14 @@ const armor = {
     str: 7,
     set: 'clown',
   },
+  medievalLaundryOutfit: {
+    con: 6,
+    set: 'medievalLaunderers',
+  },
+  medievalLaundryDress: {
+    con: 6,
+    set: 'medievalLaunderers',
+  },
 };
 
 const body = {
@@ -718,6 +726,14 @@ const head = {
     con: 5,
     set: 'clown',
   },
+  medievalLaundryCap: {
+    int: 6,
+    set: 'medievalLaunderers',
+  },
+  medievalLaundryHat: {
+    int: 6,
+    set: 'medievalLaunderers',
+  },
 };
 
 const shield = {
@@ -919,6 +935,52 @@ const shield = {
   clownsBalloons: {
     per: 5,
     set: 'clown',
+  },
+  strawberryFood: {
+    str: 5,
+    set: 'petFood',
+  },
+  rottenMeatFood: {
+    con: 5,
+    set: 'petFood',
+  },
+  potatoFood: {
+    per: 5,
+    set: 'petFood',
+  },
+  pinkCottonCandyFood: {
+    int: 5,
+    set: 'petFood',
+  },
+  meatFood: {
+    str: 5,
+    set: 'petFood',
+  },
+  honeyFood: {
+    int: 3,
+    per: 3,
+    set: 'petFood',
+  },
+  fishFood: {
+    per: 5,
+    set: 'petFood',
+  },
+  chocolateFood: {
+    int: 5,
+    set: 'petFood',
+  },
+  blueCottonCandyFood: {
+    con: 5,
+    set: 'petFood',
+  },
+  milkFood: {
+    con: 3,
+    str: 3,
+    set: 'petFood',
+  },
+  medievalLaundry: {
+    per: 6,
+    set: 'medievalLaunderers',
   },
 };
 
@@ -1217,6 +1279,10 @@ const weapon = {
   jadeGlaive: {
     str: 10,
     set: 'jadeWarrior',
+  },
+  medievalWashboard: {
+    str: 6,
+    set: 'medievalLaunderers',
   },
 };
 
